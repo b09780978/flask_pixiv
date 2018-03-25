@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}收藏{% endblock %}
+{% block body %}
+	<nav class="nav navbar-default navbar-fixed-top">
+	    <div class="container-fluid">
+	        <div class="navbar-header">
+	           	<div id="loadmoreajaxloader">
+	               	<ul class="nav navbar-nav navbar-right">
+	                   	<i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+	               	</ul>
+	           	</div>
+	        </div>
+	    </div>
+	</nav>
+	<div class="container">
+    	<div class="row">
+        	<div class="col-lg-12">
+           		<h1 class="page-header">Pixiv images</h1>
+        	</div>
+    	</div>
+	</div>
+	<script src="{{ url_for('static', filename='js/favorate.js') }}"></script>
+{% endblock %}
