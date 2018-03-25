@@ -1,5 +1,5 @@
 # flask-pixiv
-a web server crawl pixiv image and store you like image src in database.
+    a web server crawl pixiv image and store you like image src in database.
 
 Requirement packet:
 ------------
@@ -22,13 +22,21 @@ python3
     
     beautifulsoup4
     
-Easy install packet
+pip install by setup.py(recommand):
+------------
+
+    pip install --editable .
+    
+pip install by requirements.txt:
 ------------
 
     pip install -r requirements.txt
     
+    
 Setup:
 ------------
+    move folder:
+        cd flask_pixiv
     edit:
         put your pixiv account and password in config.ini.
         
@@ -44,16 +52,24 @@ Setup:
         
         python manager.py upgrade
         
+    option:
+        Debug mode:
+            open app.py and set DEBUG = True
+        
     run server command:
     
         python app.py
         
-Use virtualenv:
+        
+        [if you pip install by setup.py]
+        flask_pixiv 
+        
+Use virtualenv(recommand):
 ------------
     Usage
     ------------
         # create virtual enviroment.
-        python -m venv myenv
+        python -m venv venv
         
         # activate virtual enviromnent.
-        myenv\Scripts\activate
+        venv\Scripts\activate
