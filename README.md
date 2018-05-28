@@ -22,17 +22,11 @@ python3
     
     beautifulsoup4
     
-pip install by setup.py(recommand):
+pip install by setup.py:
 ------------
 
     pip install --editable .
-    
-pip install by requirements.txt:
-------------
-
-    pip install -r requirements.txt
-    
-    
+        
 Setup:
 ------------
     move folder:
@@ -57,11 +51,6 @@ Setup:
             open app.py and set DEBUG = True
         
     run server command:
-    
-        python app.py
-        
-        
-        [if you pip install by setup.py]
         flask_pixiv 
         
 Use virtualenv(recommand):
