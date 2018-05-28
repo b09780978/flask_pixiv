@@ -15,10 +15,16 @@
 				<a class="img-thumbnail" href="{{ item['url'] }}" target="_blank" id="{{ item['id'] }}">
 					<img alt="{{ item['url'] }}" src="{{ item['url'] }}" width="250" height="350">
 				</a>
-				<a class="add_photo" href="javascript:remove_button({{ item['id'] }})">
+				<a class="add_photo" href="javascript:add_button('{{ item['id'] }}', '{{ item['url'] }}')">
 					<i class="fa fa-circle-o fa-2x"></i>
 				</a>
 			</div>
 		</div>
 	{% endfor %}
+	<div class="container">
+		<button type="button" class="btn btn-primary"><a href="{{ url_for('rank_daily', page=page-1 if page>1 else 1) }}" text-decoration:none><font color="white">上一頁</font></a></button>
+		{% if page+1 < 11 %}
+		<button type="button" class="btn btn-success"><a href="{{ url_for('rank_daily', page=page+1) }}" text-decoration:none><font color="white">下一頁</font></a></button>
+		{% endif %}
+	</div>
 {% endblock %}
