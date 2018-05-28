@@ -73,3 +73,6 @@ Use virtualenv(recommand):
         
         # activate virtual enviromnent.
         venv\Scripts\activate
+        
+        # update pip.
+        python -m pip install -U pip
