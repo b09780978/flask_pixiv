@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import configparser
+import logging
 from flask import render_template, session, url_for, redirect, flash
 from flask_login import UserMixin
 from flask_login import login_required, current_user, login_user, logout_user
@@ -15,6 +16,22 @@ config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
 pixiv_id = config['pixiv_api']['pixiv_id']
 password = config['pixiv_api']['password']
+
+# Logger setting.
+LOGGER_FILENAME = './falsk_pixiv.log'
+LOGGER_FORMAT = '%(asctime)-15s %(levelname)s %(process)d %(filename)s %(lineno)d %(message)s'
+LOGGER_DATE_FORMAT = '%a %d %b %Y %H:%M:%S'
+
+# Create and set logger.
+app.logger.setLevel(logging.DEBUG)
+
+logger_file_handler = logging.FileHandler(LOGGER_FILENAME)
+logger_file_handler.setLevel(logging.WARN)
+
+logger_formatter = logging.Formatter(LOGGER_FORMAT, LOGGER_DATE_FORMAT)
+
+logger_file_handler.setFormatter(logger_formatter)
+app.logger.addHandler(logger_file_handler)
 
 class Account(UserMixin):
     pass
@@ -74,7 +91,7 @@ def register():
 		db.session.add(user)
 		db.session.commit()
 	except Exception:
-		render_template('register.html', error='register fail')
+		return	render_template('register.html', error='register fail')
 	return redirect(url_for('index'))
 
 @app.route('/user/check', methods=['POST'])
@@ -106,6 +123,7 @@ def index(page=1):
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
 		pool = pixiv_api.get_follow(page)	
 	except (pixiv.PixivApiException, Exception):
+		app.logger.error('Get index fail')
 		pool = []
 	finally:
 		del pixiv_api
@@ -129,6 +147,7 @@ def rank_male(page=1):
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
 		pool = pixiv_api.get_rank(page, male=True, daily=False, r18=False)	
 	except (pixiv.PixivApiException, Exception) :
+		app.logger.error('Get male rank fail')
 		pool = []
 	finally:
 		del pixiv_api
@@ -147,6 +166,7 @@ def rank_female(page=1):
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
 		pool = pixiv_api.get_rank(page, male=False, daily=False, r18=False)	
 	except (pixiv.PixivApiException, Exception) :
+		app.logger.error('Get female rank fail')
 		pool = []
 	finally:
 		del pixiv_api
@@ -165,6 +185,7 @@ def rank_r18_male(page=1):
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
 		pool = pixiv_api.get_rank(page, male=True, daily=False, r18=True)
 	except (pixiv.PixivApiException, Exception):
+		app.logger.error('Get male_r18 rank fail')
 		pool = []
 	finally:
 		del pixiv_api
@@ -183,6 +204,7 @@ def rank_r18_female(page=1):
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
 		pool = pixiv_api.get_rank(page, male=False, daily=False, r18=True)
 	except (pixiv.PixivApiException, Exception):
+		app.logger.error('Get female_r18 rank fail')
 		pool = []
 	finally:
 		del pixiv_api
@@ -201,6 +223,7 @@ def rank_daily(page=1):
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
 		pool = pixiv_api.get_rank(page, daily=False, r18=False)
 	except (pixiv.PixivApiException, Exception):
+		app.logger.error('Get daily rank fail')
 		pool = []
 	finally:
 		del pixiv_api
@@ -219,6 +242,7 @@ def rank_r18_daily(page=1):
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
 		pool = pixiv_api.get_rank(page, daily=False, r18=True)
 	except (pixiv.PixivApiException, Exception):
+		app.logger.error('Get daily_r18 rank fail')
 		pool = []
 	except:
 		del pixiv_api
