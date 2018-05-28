@@ -50,7 +50,7 @@ Setup:
         Debug mode:
             open app.py and set DEBUG = True
         
-    run server command:
+    run server command(need in flask_pixiv folder):
         flask_pixiv 
         
 Use virtualenv(recommand):
