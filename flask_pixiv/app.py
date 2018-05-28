@@ -95,6 +95,7 @@ def logout():
 	Rank page.
 '''
 @app.route('/', methods=['GET'])
+@app.route('/index/', methods=['GET'])
 @app.route('/index/<int:page>', methods=['GET'])
 @login_required
 def index(page=1):
@@ -116,94 +117,112 @@ def favorate():
 	return render_template('favorate.html')
 
 @app.route('/male', methods=['GET'])
+@app.route('/male/', methods=['GET'])
+@app.route('/male/<int:page>', methods=['GET'])
 @login_required
-def rank_male():
-	images = 100
+def rank_male(page=1):
+	page = 1 if page<1 else page
+	page = 10 if page>10 else page
 	pool = None
 	pixiv_api = None
 	try:
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
-		pool = pixiv_api.get_rank(images, male=True, daily=False, r18=False)
-	except (pixiv.PixivApiException, Exception):
-		pool = []
-	finally:
-		del pixiv_api
-	return render_template('male.html', data=pool)
-
-@app.route('/female', methods=['GET'])
-@login_required
-def rank_female():
-	images = 100
-	pool = None
-	pixiv_api = None
-	try:
-		pixiv_api = pixiv.PixivApi(pixiv_id, password)
-		pool = pixiv_api.get_rank(images, male=False, daily=False, r18=False)	
+		pool = pixiv_api.get_rank(page, male=True, daily=False, r18=False)	
 	except (pixiv.PixivApiException, Exception) :
 		pool = []
 	finally:
 		del pixiv_api
-	return render_template('female.html', data=pool)
+	return render_template('male.html', page=page, data=pool)
+
+@app.route('/female', methods=['GET'])
+@app.route('/female/', methods=['GET'])
+@app.route('/female/<int:page>', methods=['GET'])
+@login_required
+def rank_female(page=1):
+	page = 1 if page<1 else page
+	page = 10 if page>10 else page
+	pool = None
+	pixiv_api = None
+	try:
+		pixiv_api = pixiv.PixivApi(pixiv_id, password)
+		pool = pixiv_api.get_rank(page, male=False, daily=False, r18=False)	
+	except (pixiv.PixivApiException, Exception) :
+		pool = []
+	finally:
+		del pixiv_api
+	return render_template('female.html', page=page, data=pool)
 
 @app.route('/male_r18', methods=['GET'])
+@app.route('/male_r18/', methods=['GET'])
+@app.route('/male_r18/<int:page>', methods=['GET'])
 @login_required
-def rank_r18_male():
-	images = 100
+def rank_r18_male(page=1):
+	page = 1 if page<1 else page
+	page = 10 if page>10 else page
 	pool = None
 	pixiv_api = None
 	try:
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
-		pool = pixiv_api.get_rank(images, male=True, daily=False, r18=True)
+		pool = pixiv_api.get_rank(page, male=True, daily=False, r18=True)
 	except (pixiv.PixivApiException, Exception):
 		pool = []
 	finally:
 		del pixiv_api
-	return render_template('r18_male.html', data=pool)
+	return render_template('r18_male.html', page=page, data=pool)
 
 @app.route('/female_r18', methods=['GET'])
+@app.route('/female_r18/', methods=['GET'])
+@app.route('/female_r18/<int:page>', methods=['GET'])
 @login_required
-def rank_r18_female():
-	images = 100
+def rank_r18_female(page=1):
+	page = 1 if page<1 else page
+	page = 10 if page>10 else page
 	pool = None
 	pixiv_api = None
 	try:
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
-		pool = pixiv_api.get_rank(images, male=False, daily=False, r18=True)
+		pool = pixiv_api.get_rank(page, male=False, daily=False, r18=True)
 	except (pixiv.PixivApiException, Exception):
 		pool = []
 	finally:
 		del pixiv_api
-	return render_template('r18_female.html', data=pool)
+	return render_template('r18_female.html', page=page, data=pool)
 
 @app.route('/daily', methods=['GET'])
+@app.route('/daily/', methods=['GET'])
+@app.route('/daily/<int:page>', methods=['GET'])
 @login_required
-def rank_daily():
-	images = 100
+def rank_daily(page=1):
+	page = 1 if page<1 else page
+	page = 10 if page>10 else page
 	pool = None
 	pixiv_api = None
 	try:
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
-		pool = pixiv_api.get_rank(images, daily=False, r18=False)
+		pool = pixiv_api.get_rank(page, daily=False, r18=False)
 	except (pixiv.PixivApiException, Exception):
 		pool = []
 	finally:
 		del pixiv_api
-	return render_template('daily.html', data=pool)
+	return render_template('daily.html', page=page, data=pool)
 
 @app.route('/daily_r18', methods=['GET'])
+@app.route('/daily_r18/', methods=['GET'])
+@app.route('/daily_r18/<int:page>', methods=['GET'])
 @login_required
-def rank_r18_daily():
-	images = 100
+def rank_r18_daily(page=1):
+	page = 1 if page<1 else page
+	page = 10 if page>10 else page
 	pixiv_api = None
 	pool = None
 	try:
 		pixiv_api = pixiv.PixivApi(pixiv_id, password)
-		pool = pixiv_api.get_rank(images, daily=False, r18=True)
+		pool = pixiv_api.get_rank(page, daily=False, r18=True)
 	except (pixiv.PixivApiException, Exception):
 		pool = []
 	except:
 		del pixiv_api
-	return render_template('r18_daily.html', data=pool)
+	return render_template('r18_daily.html', page=page, data=pool)
 
 def run():
 	app.run(host='0.0.0.0', port=80, debug=DEBUG)
