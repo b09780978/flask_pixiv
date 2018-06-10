@@ -65,3 +65,21 @@ Use virtualenv(recommand):
         
         # update pip.
         python -m pip install -U pip
+
+Build by docker:
+------------
+        setting:
+            move folder:
+                cd flask_pixiv
+            edit:
+                put your pixiv account and password in config.ini.
+
+                pixiv_id = YOUR_PIXIV_ACCOUNT
+
+                password = YOUR_PIXIV_PASSWORD
+
+            option:
+                Debug mode:
+                    open app.py and set DEBUG = True
+        build:
+            docker-compose up -d
