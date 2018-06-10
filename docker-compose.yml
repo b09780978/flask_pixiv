@@ -1,0 +1,13 @@
+version: '3'
+
+services :
+    flask_pixiv:
+        container_name : flask_pixiv
+        build : .
+        restart : always
+        ports :
+            - "8000:80"
+        volumes :
+            - db_data:/flask_pixiv/flask_pixiv/
+volumes:
+    db_data :
