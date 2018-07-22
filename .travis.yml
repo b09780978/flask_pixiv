@@ -1,7 +1,21 @@
+language : python
+python :
+    - "3.4"
+    - "3.5"
+    - "3.6"
+    - "3.7"
+    
+notifacations:
+    email:
+        recipients:
+            - b09780978@gmail.com
+        on_success : always
+        on_failure : always
+        
 sudo : required
 
 services:
     docker
 
-before_install:
+script:
     - docker-compose up -d
