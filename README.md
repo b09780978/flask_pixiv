@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/b09780978/flask_pixiv.svg?branch=master)](https://travis-ci.com/b09780978/flask_pixiv)
-
 # flask-pixiv
     a web server crawl pixiv image and store you like image src in database.
 
